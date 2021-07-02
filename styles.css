@@ -29,7 +29,20 @@ h1 {
 
 .dashboard #image {
     display:  block;
-    max-width: 60%;
-    height: 80%;
+    max-width: 80%;
+    height: 60%;
     margin: 0 auto;
+}
+.dashboard .info {
+    padding: 2%;
+}
+
+.info-elm {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.info-elm span {
+    font-weight: normal;
+    text-decoration: unset;
 }
