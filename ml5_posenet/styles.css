@@ -1,0 +1,32 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+#workbench {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    border: 2px solid red;
+}
+
+h1 {
+    text-align: center;
+}
+
+#webcam-vid, #canvas {
+    width: 600px;
+    height: 600px;
+    border: 2px purple solid;
+    display: block;
+    margin: 0 auto;
+}
+
+#webcam-vid {
+    display: none;
+}
