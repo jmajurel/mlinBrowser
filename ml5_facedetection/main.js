@@ -10,8 +10,8 @@ if(navigator.mediaDevices.getUserMedia) {
             console.dir(err);
         });
 }*/
-const WIDTH = 400;
-const HEIGHT = 400;
+const WIDTH = 800;
+const HEIGHT = 800;
 var canvas = document.getElementById("face-canvas");
 let faceapi;
 let ctx;
@@ -46,7 +46,10 @@ function getCanvasContext() {
     const canvas = document.getElementById("face-canvas");
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
-    return canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
+    ctx.scale(1.5, 1.5);
+    ctx.translate(-WIDTH*0.15, -HEIGHT*0.2)
+    return ctx;
 }
 
 function handleResults(err, detections) {
@@ -60,14 +63,13 @@ function modelReady() {
 }
 
 function drawDetectionsInCanvas(detections) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-    ctx.drawImage(video, 0, 0, WIDTH, HEIGHT);
-    if (detections) {
-        if (detections.length > 0) {
-          drawBox(detections);
-          drawLandmarks(detections);
-        }
+
+    //ctx.drawImage(video, 0, 0, WIDTH, HEIGHT);
+    if (detections && detections.length > 0) {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        //drawBox(detections);
+        drawLandmarks(detections);
     }
     faceapi.detect(handleResults);
 }
@@ -96,6 +98,7 @@ function drawBox(detections) {
       const rightEye = detections[i].parts.rightEye;
       const rightEyeBrow = detections[i].parts.rightEyeBrow;
       const leftEyeBrow = detections[i].parts.leftEyeBrow;
+      const jaw = detections[i].parts.jawOutline;
   
       drawPart(mouth, true);
       drawPart(nose, false);
@@ -103,6 +106,7 @@ function drawBox(detections) {
       drawPart(leftEyeBrow, false);
       drawPart(rightEye, true);
       drawPart(rightEyeBrow, false);
+      drawPart(jaw, false);
     }
   }
   
@@ -122,5 +126,6 @@ function drawBox(detections) {
     if (closed === true) {
       ctx.closePath();
     }
+    ctx.lineWidth  = 4;
     ctx.stroke();
   }
